@@ -40,6 +40,7 @@
             this.lblInstruct = new System.Windows.Forms.Label();
             this.lblTurnNumber = new System.Windows.Forms.Label();
             this.lblGameOver = new System.Windows.Forms.Label();
+            this.lblDescending = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericChasmFraction)).BeginInit();
             this.SuspendLayout();
@@ -125,9 +126,9 @@
             this.lblLevel.AutoSize = true;
             this.lblLevel.Location = new System.Drawing.Point(12, 9);
             this.lblLevel.Name = "lblLevel";
-            this.lblLevel.Size = new System.Drawing.Size(42, 13);
+            this.lblLevel.Size = new System.Drawing.Size(39, 13);
             this.lblLevel.TabIndex = 7;
-            this.lblLevel.Text = "Level 1";
+            this.lblLevel.Text = "Floor 1";
             this.lblLevel.Visible = false;
             // 
             // lblInstruct
@@ -162,11 +163,25 @@
             this.lblGameOver.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblGameOver.Visible = false;
             // 
+            // lblDescending
+            // 
+            this.lblDescending.AutoSize = true;
+            this.lblDescending.BackColor = System.Drawing.SystemColors.Control;
+            this.lblDescending.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDescending.Location = new System.Drawing.Point(242, 287);
+            this.lblDescending.Name = "lblDescending";
+            this.lblDescending.Size = new System.Drawing.Size(168, 18);
+            this.lblDescending.TabIndex = 11;
+            this.lblDescending.Text = "Descending to next floor";
+            this.lblDescending.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblDescending.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(663, 503);
+            this.Controls.Add(this.lblDescending);
             this.Controls.Add(this.lblGameOver);
             this.Controls.Add(this.lblTurnNumber);
             this.Controls.Add(this.lblInstruct);
@@ -201,6 +216,7 @@
         private System.Windows.Forms.Label lblInstruct;
         private System.Windows.Forms.Label lblTurnNumber;
         private System.Windows.Forms.Label lblGameOver;
+        private System.Windows.Forms.Label lblDescending;
     }
 }
 

@@ -119,14 +119,14 @@
   </resheader>
   <data name="lblInstruct.Text" xml:space="preserve">
     <value>Objective:
-Locate the treasure on level 10 to win.
-Use the red stair tiles on each level to descend.
+Locate the treasure on floor 8 to win.
+Use the red stair tiles on each floor to descend.
 
 Controls:
 Arrow/cursor keys to move
-. (period) to skip a turn without moving
+. (period) to skip a turn without moving - useful for dodging
 
-tips:
+pro tip:
 -dont get eaten</value>
   </data>
 </root>

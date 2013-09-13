@@ -25,7 +25,7 @@ namespace TempRl
         public override bool Place(Tile tile)
         {
             _segmentLocations[0] = tile;
-            for (int i = 0; i < _length; i++)
+            for (int i = 0; i < _length - 1; i++)
             {
                 int attempts = 20;
                 for (; attempts > 0; attempts--)
@@ -268,6 +268,7 @@ namespace TempRl
                 //oldTailTile.Entity = this;
             }
             _tile = HeadTile;
+
             return true;
         }
     }

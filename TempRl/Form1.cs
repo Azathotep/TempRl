@@ -71,8 +71,9 @@ namespace TempRl
             return Math.Abs(tile1.X - tile2.X) + Math.Abs(tile1.Y - tile2.Y);
         }
 
-        void CreateMap(int level)
+        Map CreateMap(int level)
         {
+            Map newMap;
             int numHidingHoles = 0;
             int mapSize = 30;
             if (level > 2)
@@ -161,13 +162,13 @@ namespace TempRl
                 designer = new MapDesigner();
                 designer.MaxTemplates = maxTemplates;
                 designer.NumHidingHoles = numHidingHoles;
-                _map = designer.CreateMap(mapSize, mapSize); //, (double)numericChasmFraction.Value / 100);
+                newMap = designer.CreateMap(mapSize, mapSize); //, (double)numericChasmFraction.Value / 100);
 
                 if (designer.NumTemplates >= minTemplates)
                     break;
             }
 
-            Tile playerTile = _map.GetRandomFloorTile();
+            Tile playerTile = newMap.GetRandomFloorTile();
             _player.Place(playerTile);
 
 
@@ -175,7 +176,7 @@ namespace TempRl
             while (true)
             {
                 minDistance--;
-                Tile exitTile = _map.GetRandomFloorTile();
+                Tile exitTile = newMap.GetRandomFloorTile();
                 int distance = Math.Abs(exitTile.X - playerTile.X) + Math.Abs(exitTile.Y - playerTile.Y);
                 if (distance < minDistance)
                     continue;
@@ -191,7 +192,7 @@ namespace TempRl
                 if (zombiesPlaced == numZombies)
                     break;
                 Zombie z = new Zombie();
-                Tile zombieTile = _map.GetRandomFloorTile();
+                Tile zombieTile = newMap.GetRandomFloorTile();
                 if (Distance(zombieTile, playerTile) < 20)
                     continue;
                 z.Place(zombieTile);
@@ -205,7 +206,7 @@ namespace TempRl
                     break;
                 int length=snakeLength;
 
-                Tile floorTile = _map.GetRandomFloorTile();
+                Tile floorTile = newMap.GetRandomFloorTile();
                 if (Distance(floorTile, playerTile) < 20)
                     continue;
 
@@ -219,8 +220,7 @@ namespace TempRl
                     createdSnakes++;
                 
             }
-            
-            RefreshMap();
+            return newMap;
         }
 
         HashSet<Tile> _rememberedTiles = new HashSet<Tile>();
@@ -267,17 +267,27 @@ namespace TempRl
 
         void DoCreateMap()
         {
+            if (level > 1)
+                lblDescending.Visible = true;
             StartProgressBar();
             Thread thread = new Thread(new ThreadStart(() =>
             {
-                CreateMap(level);
-                Thread.Sleep(500);
+                DateTime timeStarted = DateTime.Now;
+                Map newMap = CreateMap(level);
+                DateTime timeEnd = DateTime.Now;
+                int generationTimeMs = timeEnd.Subtract(timeStarted).Milliseconds;
+                int minWaitMs = 2000;
+                int waitTime = Math.Max(0, minWaitMs - generationTimeMs);
+                Thread.Sleep(waitTime);
                 progressBar1.BeginInvoke(new Action(() =>
                     {
                         lblLevel.Text = "Level " + level;
                         lblLevel.Visible = true;
                         lblTurnNumber.Visible = true;
+                        lblDescending.Visible = false;
                         StopProgressBar();
+                        _map = newMap;
+                        RefreshMap();
                     }));
             }));
             thread.Start();
@@ -409,6 +419,7 @@ namespace TempRl
             {
                 if (_player.Tile.IsExit)
                 {
+                    RefreshMap();
                     if (level == 8)
                     {
                         GameOver = true;
@@ -431,10 +442,9 @@ namespace TempRl
                             break;
                     }
                 }
+                turnNumber++;
+                lblTurnNumber.Text = "Turn " + turnNumber;
             }
-
-            turnNumber++;
-            lblTurnNumber.Text = "Turn " + turnNumber;
 
             if (GameOver)
             {
