@@ -4,7 +4,7 @@ TempRl v0.1
 Stands for Temporarily Named Roguelike
 -The 7DRL that took 7 months to write D:
 
-![My image](img/screenshot1.png)
+![My image](https://github.com/Azathotep/TempRl/blob/master/Img/screenshot1.png)
 
 Marketing Blurb: Finally a game in which you can play a red pixel! Experience what it is like to be red pixel scouring a dungeon for the artifact known as the Game Completion Objective.
 
