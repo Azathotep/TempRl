@@ -106,7 +106,7 @@
             // 
             this.lblMsg.AutoSize = true;
             this.lblMsg.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMsg.Location = new System.Drawing.Point(260, 257);
+            this.lblMsg.Location = new System.Drawing.Point(263, 292);
             this.lblMsg.Name = "lblMsg";
             this.lblMsg.Size = new System.Drawing.Size(128, 13);
             this.lblMsg.TabIndex = 5;
@@ -114,7 +114,7 @@
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(160, 273);
+            this.progressBar1.Location = new System.Drawing.Point(153, 308);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(341, 23);
             this.progressBar1.TabIndex = 6;
@@ -133,7 +133,7 @@
             // lblInstruct
             // 
             this.lblInstruct.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblInstruct.Location = new System.Drawing.Point(157, 57);
+            this.lblInstruct.Location = new System.Drawing.Point(168, 92);
             this.lblInstruct.Name = "lblInstruct";
             this.lblInstruct.Size = new System.Drawing.Size(344, 184);
             this.lblInstruct.TabIndex = 8;
@@ -154,7 +154,7 @@
             this.lblGameOver.AutoSize = true;
             this.lblGameOver.BackColor = System.Drawing.SystemColors.Control;
             this.lblGameOver.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblGameOver.Location = new System.Drawing.Point(284, 205);
+            this.lblGameOver.Location = new System.Drawing.Point(285, 228);
             this.lblGameOver.Name = "lblGameOver";
             this.lblGameOver.Size = new System.Drawing.Size(85, 36);
             this.lblGameOver.TabIndex = 10;

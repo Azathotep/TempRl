@@ -58,7 +58,7 @@ namespace TempRl
         public virtual bool Place(Tile tile)
         {
             _map = tile.Map;
-            _map.Creature(this);
+            _map.AddCreature(this);
             _tile = tile;
             tile.Creature = this;
             return true;

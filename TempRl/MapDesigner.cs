@@ -830,7 +830,7 @@ namespace TempRl
             int lastAdded = 0;
             for (int i = 0; i < 10000; i++)
             {
-                if (NumTemplates > MaxRooms)
+                if (NumTemplates > MaxTemplates)
                     break;
                 lastAdded++;
                 if (lastAdded > 1000)
@@ -1069,7 +1069,7 @@ namespace TempRl
             }
         }
 
-        public int MaxRooms { get; set; }
+        public int MaxTemplates { get; set; }
         public int NumHidingHoles;
     }
 }

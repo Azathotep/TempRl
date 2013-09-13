@@ -330,7 +330,7 @@ namespace TempRl
                 c.Tile.WaterLevel = c.Value;
          }
 
-        public void Creature(Creature e)
+        public void AddCreature(Creature e)
         {
             Entities.Add(e);
         }

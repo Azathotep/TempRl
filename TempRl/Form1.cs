@@ -81,7 +81,11 @@ namespace TempRl
                 mapSize = 50;
             if (level > 7)
                 mapSize = 60;
-            int maxRooms = 4;
+            //determines the minimum and maximum number of templates (rooms and corridors) for the map to be
+            //acceptable. The map generator will keep extending the map until the max limit is reached. After generation
+            //if the map hasn't reached the minimum number the map will be invalid and a new map will be generated.
+            int minTemplates = 4;
+            int maxTemplates = 4;
             int numZombies = 0;
             int numSnakes = 0;
             int snakeLength = 6;
@@ -89,32 +93,37 @@ namespace TempRl
             if (level == 1)
             {
                 numZombies = 0;
-                maxRooms = 3;
+                minTemplates = 5;
+                maxTemplates = 5;
             }
             if (level == 2)
             {
                 numHidingHoles = 1;
                 numZombies = 2;
-                maxRooms = 5;
+                minTemplates = 15;
+                maxTemplates = 15;
             }
             if (level == 3)
             {
                 numHidingHoles = 2;
                 numSnakes = 1;
-                snakeLength = 8;
-                maxRooms = 10;
+                snakeLength = 10;
+                minTemplates = 15;
+                maxTemplates = 15;
             }
             if (level == 4)
             {
                 numHidingHoles = 2;
                 numZombies = 3;
-                maxRooms = 15;
+                minTemplates = 20;
+                maxTemplates = 20;
             }
             if (level == 5)
             {
                 numHidingHoles = 3;
                 numZombies = 5;
-                maxRooms = 15;
+                minTemplates = 25;
+                maxTemplates = 25;
             }
             
             if (level == 6)
@@ -124,15 +133,17 @@ namespace TempRl
                 numZombies = 0;
                 numSnakes = 3;
                 snakeLength = 8;
-                maxRooms = 25;
-            }
+                minTemplates = 30;
+                maxTemplates = 30;
+            }            
             if (level == 7)
             {
                 numHidingHoles = 6;
                 numZombies = 10;
                 numSnakes = 1;
                 snakeLength = 8;
-                maxRooms = 99;
+                minTemplates = 50;
+                maxTemplates = 50;
             }
             if (level == 8)
             {
@@ -141,16 +152,18 @@ namespace TempRl
                 numZombies = 0;
                 numSnakes = 8;
                 snakeLength = 8;
-                maxRooms = 99;
+                minTemplates = 60;
+                maxTemplates = 99;
             }
 
             while (true)
             {
                 designer = new MapDesigner();
-                designer.MaxRooms = maxRooms;
+                designer.MaxTemplates = maxTemplates;
                 designer.NumHidingHoles = numHidingHoles;
                 _map = designer.CreateMap(mapSize, mapSize); //, (double)numericChasmFraction.Value / 100);
-                if (designer.NumTemplates > 20)
+
+                if (designer.NumTemplates >= minTemplates)
                     break;
             }
 
@@ -325,7 +338,7 @@ namespace TempRl
                     break;
                 case Keys.T:
                     
-                    Debug();
+                    //Debug();
                 
                     //designer.Clean(TileType.Chasm);
                     break;
@@ -345,7 +358,7 @@ namespace TempRl
                     hasMoved = true;
                     break;
                 case Keys.E:
-                    _map.EmitSound(_map.GetTile(_player.X, _player.Y), 100);
+                    //_map.EmitSound(_map.GetTile(_player.X, _player.Y), 100);
                     break;
                 case Keys.O:
                     _doOpen = true;
@@ -378,21 +391,13 @@ namespace TempRl
                 else
                 {
                     hasMoved = _player.Move(moveDirection.Value);
-                    Tile neighbourTile = _player.Tile.GetNeighbour(moveDirection.Value);
-                    if (neighbourTile != null && neighbourTile.Creature != null)
+                    //if the player tried to move but was blocked see if it's because they ran into a monster
+                    //if so count it as a move
+                    if (!hasMoved)
                     {
-                        if (neighbourTile.Creature.GetType() == typeof(Zombie))
-                        {
-                            _player.Tile.Creature = null;
-                            GameOver = true;
-                            GameOverReason = GameOverReasonZombie; 
-                        }
-                        if (neighbourTile.Creature.GetType() == typeof(Serpent))
-                        {
-                            _player.Tile.Creature = null;
-                            GameOver = true;
-                            GameOverReason = GameOverReasonSnake;
-                        }
+                        Tile neighbourTile = _player.Tile.GetNeighbour(moveDirection.Value);
+                        if (neighbourTile != null && neighbourTile.Creature != null)
+                            hasMoved = true;
                     }
                 }
             }
