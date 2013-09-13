@@ -1028,6 +1028,11 @@ namespace TempRl
                 }
         }
 
+        /// <summary>
+        /// Hiding holes are small single tile caves that the player can hide in. Zombies and snakes cannot
+        /// see the player when they are in a hiding hole and will lose track of them. Zombies will never
+        /// enter a hiding hole, but snakes can randomly do so.
+        /// </summary>
         void AddHidingHoles()
         {
             int added = 0;
@@ -1036,6 +1041,9 @@ namespace TempRl
                 if (added == NumHidingHoles)
                     break;
                 Tile tile = _map.GetRandomTile();
+                //don't build hiding holes at the edge of the map or creatures can escape the map!
+                if (tile.X == 0 || tile.Y == 0 || tile.X == _map.Width - 1 || tile.Y == _map.Height - 1)
+                    continue;
                 if (tile.IsWall)
                 {
                     List<Tile> neighbours = _map.GetAdjacentTiles(tile.X, tile.Y);
